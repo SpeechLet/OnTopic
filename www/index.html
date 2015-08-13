@@ -20,8 +20,66 @@
         <script src="bower_components/uikit/js/components/lightbox.min.js"></script>      
     </head>
     <body>
-		    <div class="uk-container">
-            
+        <div class="title">
+            OnTopic
+        </div>
+        
+		    <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom page">
+            <div class="uk-grid">
+                <div class="uk-width-1-2">
+                    <form class="uk-form uk-form-large uk-form-horizontal">
+                        <fieldset>
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="board-name">Name:</label>
+                                <div class="uk-form-controls">
+                                    <input type="text" id="board-name">
+                                </div>
+                            </div>
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="board-color">Board color:</label>
+                                <div class="uk-form-controls">
+                                    <input type="radio" name="board-color" checked class="color color0">                                    
+                                    <input type="radio" name="board-color" class="color color1">
+                                    <input type="radio" name="board-color" class="color color2">
+                                    <input type="radio" name="board-color" class="color color3">
+                                    <input type="radio" name="board-color" class="color color4">
+                                    <input type="radio" name="board-color" class="color color5">
+                                    <input type="radio" name="board-color" class="color color6">
+                                    
+                                </div>
+                            </div>
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="board-circle">Circle color:</label>
+                                <div class="uk-form-controls">
+                                    <input type="radio" name="board-circle" checked class="color color0">                                    
+                                    <input type="radio" name="board-circle" class="color color1">
+                                    <input type="radio" name="board-circle" class="color color2">
+                                    <input type="radio" name="board-circle" checked class="color color3">
+                                    <input type="radio" name="board-circle" class="color color4">
+                                    <input type="radio" name="board-circle" class="color color5">
+                                    <input type="radio" name="board-circle" class="color color6">                                    
+                                </div>
+                            </div>
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="board-circle">Topic:</label>
+                                <div class="uk-form-controls">                                
+                                    <input type="text" id="board-<!--TODO: -->opic">
+                                </div>
+                            </div>                           
+                        </fieldset>
+                            
+                    </form>
+                </div>
+                <div class="uk-width-1-2">
+                    <div class="board-preview">
+                        <div class="board-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="play-container">
+            <button id="play">Play!</button>
         </div>
         <script src="js/main.js">
     </body>
