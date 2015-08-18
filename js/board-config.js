@@ -2,9 +2,19 @@
 
 
 $(function() {
-    
+    var touch = device.tablet() || device.mobile();
+    var clickEvent = (touch ? "touchend" : "click");
     var symbolSize = 40;
 
+    function touchEvents(table) {
+        var tnew = {};
+        _.each(_.keys(table), function(k) {
+            tnew[k.replace("click", clickEvent)] = table[k];
+        });
+
+        return tnew;
+    }
+    
     function rect($el) {
         var rect = {
             left: $el.offset().left,
@@ -97,7 +107,7 @@ $(function() {
         $el: $('body'),
         el: $('body')[0],
         
-        events: {
+        events: touchEvents({
             "click #play": "play",
             "click .radio": "setRadio",
             "change #name": "setName",
@@ -112,7 +122,7 @@ $(function() {
             "click #animations": "toggle",
             "click #delete-all": "deleteData",
             "click #excel": "toCSV"
-        },
+        }),
         
         initialize: function() {
             var settings = this.readSettings();            
@@ -258,10 +268,11 @@ $(function() {
         },
         
         point: function(e) {
+            
             var self = this;
             var p = {
-                x: e.clientX - symbolSize/2,
-                y: e.clientY - symbolSize/2
+                x: e.originalEvent.pageX - symbolSize/2,
+                y: e.originalEvent.pageY - symbolSize/2
             };
 
             this.$board.removeClass('uk-animation-shake');
@@ -297,7 +308,7 @@ $(function() {
                     if (this.model.get('animations'))
                         this.$board.addClass('uk-animation-shake');
                     
-                    $sym.on('click', function() {
+                    $sym.on(clickEvent, function() {
                         $sym.remove();
                         this.model.set('missed', this.model.get('missed')-1);                        
                     });
@@ -305,6 +316,7 @@ $(function() {
                 }
                 
             }
+            return false;
         },
 
         hideModals: function() {            
@@ -383,4 +395,10 @@ $(function() {
     });
 
     window.App = new BoardUI();
+
+    if (touch) {
+        document.ontouchmove = function(event){
+            event.preventDefault();
+        };
+    }
 });

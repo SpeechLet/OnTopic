@@ -8,14 +8,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>OnTopic</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,  target-densitydpi=device-dpi">
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="bower_components/uikit/css/uikit.min.css">
         <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
         <link rel="stylesheet" href="css/main.css">
 
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>       
+        
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/fastclick/lib/fastclick.js"></script>
+        <script src="bower_components/devicejs/lib/device.min.js"></script>        
         <script src="bower_components/uikit/js/uikit.min.js"></script>
         <script src="bower_components/uikit/js/components/sticky.min.js"></script>      
         <script src="bower_components/uikit/js/components/lightbox.min.js"></script>
@@ -69,7 +72,7 @@
                     </div>
                     <div class="uk-form-row">
                         <div class="uk-grid">                         
-                            <div class="uk-width-2-3"> 
+                            <div class="uk-width-3-4"> 
                                 <label class="uk-form-label" for="symbol">Symbol:</label>                  
                                 <div class="uk-form-controls" id="symbol-container">
                                     <button class="radio uk-icon-star selected" data-group="symbol" data-val="star"></button>
@@ -79,7 +82,7 @@
                                     <button class="radio uk-icon-circle" data-group="symbol" data-val="circle"></button>
                                 </div>
                             </div>
-                            <div class="uk-width-1-3"> 
+                            <div class="uk-width-1-4"> 
                                 <label class="uk-form-label" for="goal">Goal:</label>
                                 <div class="uk-form-controls">
                                     <input type="text" class="text-input" id="goal">
