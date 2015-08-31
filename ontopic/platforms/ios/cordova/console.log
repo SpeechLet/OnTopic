@@ -1,0 +1,28 @@
+2015-08-20 17:43:54.364 OnTopic[58961:1186692] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/sm52286/Library/Developer/CoreSimulator/Devices/F8EDFF53-F5C7-4994-AB3F-47C2058D5736/data/Containers/Data/Application/094100C1-9687-46E2-9693-7C2159E54A7C/Library/Cookies/Cookies.binarycookies
+2015-08-20 17:43:54.464 OnTopic[58961:1186692] Apache Cordova native platform version 3.7.0 is starting.
+2015-08-20 17:43:54.464 OnTopic[58961:1186692] Multi-tasking -> Device: YES, App: YES
+2015-08-20 17:43:54.466 OnTopic[58961:1186692] Unlimited access to network resources
+2015-08-20 17:43:54.469 OnTopic[58961:1186692] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-08-20 17:43:54.592 OnTopic[58961:1186692] Resetting plugins due to page load.
+2015-08-20 17:43:54.698 OnTopic[58961:1186692] Finished load of: file:///Users/sm52286/Library/Developer/CoreSimulator/Devices/F8EDFF53-F5C7-4994-AB3F-47C2058D5736/data/Containers/Bundle/Application/73129C10-E3BB-4EFC-A95B-064D917AA2D9/OnTopic.app/www/index.html
+2015-08-20 17:49:10.307 OnTopic[63578:1198035] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/sm52286/Library/Developer/CoreSimulator/Devices/F8EDFF53-F5C7-4994-AB3F-47C2058D5736/data/Containers/Data/Application/DDE7E1F4-8B55-43EA-AD1D-0C3913D31251/Library/Cookies/Cookies.binarycookies
+2015-08-20 17:49:10.391 OnTopic[63578:1198035] Apache Cordova native platform version 3.7.0 is starting.
+2015-08-20 17:49:10.392 OnTopic[63578:1198035] Multi-tasking -> Device: YES, App: YES
+2015-08-20 17:49:10.394 OnTopic[63578:1198035] Unlimited access to network resources
+2015-08-20 17:49:10.396 OnTopic[63578:1198035] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-08-20 17:49:10.517 OnTopic[63578:1198035] Resetting plugins due to page load.
+2015-08-20 17:49:10.624 OnTopic[63578:1198035] Finished load of: file:///Users/sm52286/Library/Developer/CoreSimulator/Devices/F8EDFF53-F5C7-4994-AB3F-47C2058D5736/data/Containers/Bundle/Application/720762F9-23B5-4DB2-BC22-B12A4CB94A96/OnTopic.app/www/index.html

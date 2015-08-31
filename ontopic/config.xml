@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.speechlet.ontopic" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>OnTopic</name>
+    <description>
+        An interactive visual to support topic maintenance and successful conversation for individuals with social communication needs.
+    </description>
+    <author email="stefano.meschiari@gmail.com" href="http://www.speechlet.xyz">
+        SpeechLet
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="DisallowOverscroll" value="true"/>
+    <preference name="HideKeyboardFormAccessoryBar" value="true"/>
+    <preference name="KeyboardShrinksView" value="true"/>
+</widget>
