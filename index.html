@@ -25,11 +25,14 @@
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/backbone.localstorage/backbone.localStorage-min.js"></script>
+        <script src="vendor/date.format.js"></script>
     </head>
     <body>
+
         <div id="board">
 		        <div id="circle" class="color3">
                 <div id="circle-topic">
+                    <span id="topic-client"></span><br>
                     <span id="topic-text"></span><br>
                     <span id="topic-goal"></span>
                 </div>
@@ -95,7 +98,6 @@
         </div>
         <div id="overlay">
         </div>
-        
 
         <button id="menu" class="big-button" data-uk-modal="{target:'#menu-modal'}"><i class="uk-icon-reorder"></i></button>                   
         <button id="play" class="big-button">Let's talk!</button>            
@@ -106,7 +108,7 @@
                 <a class="uk-modal-close uk-close"></a>
                 <div class="uk-grid">
                     <div class="uk-width-1-3">                        
-                        <button class="big-button" id="help"><i class="uk-icon-question-circle"></i><br>Help</button>
+                        <button class="big-button" id="help" data-uk-modal="{target:'#help-modal'}"><i class="uk-icon-question-circle"></i><br>Help</button>
                     </div>
                     <div class="uk-width-1-3">                                            
                         <button class="big-button" id="stop" disabled><i class="uk-icon-stop"></i><br>Stop</button>
@@ -117,10 +119,7 @@
                 </div>
                 <hr>
                 <div class="uk-grid">
-                    <div class="uk-width-1-2">                        
-                        <button class="big-button" data-group="record" id="record">Record: <span class="state">ON</span></button>
-                    </div>
-                    <div class="uk-width-1-2">                        
+                    <div class="uk-width-2-2">                        
                         <button class="big-button" data-uk-modal="{target:'#records-modal'}">View history</button>
                     </div>
                 </div>
@@ -139,15 +138,15 @@
             <div class="uk-modal-dialog">
                 <a class="uk-modal-close uk-close"></a>
                 <div class="uk-grid">
-                    <div class="uk-width-2-4">
+                    <div class="uk-width-3-4">
                         <h1>History</h1>
-                        This data resides on your device.
+                        This data resides on your device. Click <strong>Delete data</strong> to
+                        remove all data; set <strong>Record data</strong> to OFF to never record data.
+                        
                     </div>
                     <div class="uk-width-1-4">
+                        <button class="big-button" data-group="record" id="record">Record: <span class="state">ON</span></button>
                         <button class="big-button" id="delete-all">Delete data</button>                        
-                    </div>
-                    <div class="uk-width-1-4">
-                        <button class="big-button" id="excel">Export to Excel</button>
                     </div>
                 </div>
                 <hr>
@@ -162,6 +161,13 @@
                 </div>
             </div>
         </div>
+        <div id="help-modal" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+                <iframe src="help.html"></iframe>
+            </div>
+        </div>
+
         <script src="js/board-config.js"></script>
     </body>
 </html>

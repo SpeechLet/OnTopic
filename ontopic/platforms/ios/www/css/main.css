@@ -10,6 +10,10 @@ html {
     user-select: none;  
 }
 
+body {
+    font-family:"Arial Rounded MT Bold", Futura, Helvetica, Verdana, sans-serif;
+}
+
 button:focus {
   outline:none;
 }
@@ -39,6 +43,15 @@ input[type=text] {
   left:0;
   right:0;
   display:none;
+}
+
+#help-modal .uk-modal-dialog{
+  width:90%;
+}
+
+#help-modal iframe {
+  width:100%;
+  min-height:500px;
 }
 
 #circle {
@@ -99,6 +112,12 @@ input[type=text] {
   text-shadow:1px 1px rgba(255, 255, 255, 0.3);  
 }
 
+#topic-client {
+  font-size:2rem;
+  line-height:2.5rem;
+  color:rgba(0, 0, 0, 0.25);
+  text-shadow:1px 1px rgba(255, 255, 255, 0.3);  
+}
 
 .big-button {
   color:#39f;
@@ -111,6 +130,7 @@ input[type=text] {
   text-align:center;
   box-shadow:rgba(0, 0, 0, 0.25) 0px 5px 0px;  
   padding:15px;
+  margin-bottom:5px;
 }
 
 .big-button:active {
@@ -260,10 +280,14 @@ input[type=text] {
 }
 
 .symbol {
-  width:70px;
-  height:70px;
-  font-size:70px;
+  width:40px;
+  height:40px;
+  font-size:40px;
   color:rgba(0, 0, 0, 0.5);
+  text-shadow:1px 1px rgba(255, 255, 255, 0.4);  
+}
+
+.symbol-successful {
   text-shadow:1px 1px rgba(255, 255, 255, 0.4);  
 }
 
@@ -273,8 +297,31 @@ button.row {
 
 .state {
   font-weight:bold;
+  pointer-events:none;
 }
 
 #records-modal .uk-modal-dialog {
   width:90%;
+}
+
+.toolbar {
+  height:70px;
+  padding-left:15px;
+  padding-right:15px;
+  padding:10px;
+  line-height:70px;
+  text-align:center;
+  font-size:2rem;
+  border-bottom:1px solid rgba(0, 0, 0, 0.5);
+}
+
+.toolbar .title {
+  text-align:center;
+  height:90px;
+  line-height:90px;
+  font-size:2rem;
+}
+
+.uk-close {
+  font-size:30px;
 }

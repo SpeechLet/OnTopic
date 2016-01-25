@@ -50,8 +50,11 @@ $(function() {
         rect.height += 2*px;
         rect.right += px;
         rect.bottom += px;
-        console.log(px);
         return rect;
+    }
+
+    function formattedDate() {
+        return new Date().format();
     }
 
     
@@ -104,16 +107,20 @@ $(function() {
         $circle: $("#circle"),
         $circle_topic: $("#circle-topic"),        
         $overlay: $("#overlay"),
+        $help: $("#help-modal"),
+        helpVisible:false,
         
         $el: $('body'),
         el: $('body')[0],
         
         events: touchEvents({
+            "click circle": "dismissKeyboard",
+            "click board": "dismissKeyboard",
             "click #play": "play",
             "click .radio": "setRadio",
-            "change #name": "setName",
-            "change #topic": "setTopic",
-            "change #goal": "setGoal",
+            "input #name": "setName",
+            "input #topic": "setTopic",
+            "input #goal": "setGoal",
             "click #done": "done",
             "click #overlay": "point",
             "click #reset": "reset",
@@ -174,6 +181,11 @@ $(function() {
             
             this.model.set('goal', goal);           
         },
+
+        toggleHelp: function() {            
+            this.hideModals();
+            UIkit.modal('#help-modal').show();
+        },
         
         sync: function() {
             var b = this.model.get('board');
@@ -192,7 +204,7 @@ $(function() {
             $("#topic").val(this.model.get('topic'));
             $("#goal").val(this.model.get('goal'));
             $("#topic-text").text(this.model.get('topic'));
-
+            $("#topic-client").text(this.model.get('name'));
             $("#record .state").text(this.model.onoff('record'));
             $("#sounds .state").text(this.model.onoff('sounds'));
             $("#animations .state").text(this.model.onoff('animations'));
@@ -221,11 +233,18 @@ $(function() {
         },
 
         play: function() {
+
+            var name = this.model.get('name');
+            var topic = this.model.get('topic');
+
+            if ((name == "" && !confirm("You did not specify the client's name. Do you want to continue anyway?")) || (topic == "" && !confirm("You did not specify a topic. Do you want to continue anyway?")))
+                return;
+            
             this.model.set('current', 0);
             this.model.set('missed', 0);
             this.model.set('playing', true);
-            this.model.set('started-on', new Date().toString());
-            
+            this.model.set('started-on', formattedDate());
+
             $("#circle-content").removeClass('expanded');
             $("#circle-topic").addClass('expanded');
 
@@ -257,7 +276,7 @@ $(function() {
         },
 
         done: function() {
-            this.model.set('finished-on', new Date().toString());            
+            this.model.set('finished-on', formattedDate());            
             this.save();
             this.main();
         },
@@ -269,6 +288,8 @@ $(function() {
         },
         
         point: function(e) {
+            if (!this.model.get('playing'))
+                return false;
             
             var self = this;
             var p = {
@@ -278,56 +299,76 @@ $(function() {
 
             this.$board.removeClass('uk-animation-shake');
             
-            if (inside(expand(rect(this.$circle), -30), p) ||
-                 !inside(expand(rect(this.$circle), +10), p)) {
+            if (inside(expand(rect(this.$circle), -symbolSize/2), p) ||
+                !inside(expand(rect(this.$circle), symbolSize/2), p)) {
                 
-                var $sym = $("<i class='uk-icon-" + this.model.get('symbol') + " symbol'></i>");
+                var symbol_class = "uk-icon-" + this.model.get('symbol') + " symbol";
+                
+                var $sym = $("<i class='" + symbol_class + "'></i>");
 
+                $sym.css({
+                    position:"absolute",
+                    left: 100*p.x/this.$overlay.width() + "%",
+                    top: 100*p.y/this.$overlay.height() + "%"
+                });
                 if (inside(rect(this.$circle), p)) {
-                    var circleRect = rect(this.$circle_topic);
+                    $sym.attr('class', symbol_class + " symbol-successful");
+
+                    $sym.on(clickEvent, function() {
+                        $sym.remove();
+                        self.model.set('current', self.model.get('current')-1);
+                        return false;
+                    });
                     
-                    $sym.css({
+
+                    this.$overlay.append($sym);
+
+                    var circleRect = rect(this.$circle_topic);
+
+                    var $sym_hidden = $("<i class='" + symbol_class + " symbol-successful symbol-hidden'></i>");
+                    $sym_hidden.css({
                         position:"absolute",
                         left: 100*(p.x-circleRect.left)/circleRect.width + "%",
                         top: 100*(p.y-circleRect.top)/circleRect.height + "%"
                     });
-                    
-                    this.model.set('current', this.model.get('current')+1);
-                    $sym.on('click', function(e) {
-                        return false;
-                    });
+                    $sym_hidden.hide();
+                    this.$circle_topic.append($sym_hidden);
 
-                    this.$circle_topic.append($sym);
+                    this.model.set('current', this.model.get('current')+1);
+
                 } else {
-                    $sym.css({
-                        position:"absolute",
-                        left: 100*p.x/this.$overlay.width() + "%",
-                        top: 100*p.y/this.$overlay.height() + "%"
-                    });
+
                     this.model.set('missed', this.model.get('missed')+1);
 
                     if (this.model.get('animations'))
                         this.$board.addClass('uk-animation-shake');
-                    
+
                     $sym.on(clickEvent, function() {
                         $sym.remove();
-                        this.model.set('missed', this.model.get('missed')-1);                        
+                        self.model.set('missed', self.model.get('missed')-1);
+                        return false;
                     });
+                    
                     this.$overlay.append($sym);
-                }
-                
+                }                
             }
             return false;
         },
 
-        hideModals: function() {            
-            UIkit.modal("#menu-modal").hide();
+        hideModals: function() {
+            if (UIkit.modal("#menu-modal").active)
+                UIkit.modal("#menu-modal").hide();
+        },
+        
+        dismissKeyboard: function() {
+            document.activeElement.blur();  
         },
         
         reset: function() {
             this.model.resetCounts();
             $(".symbol").remove();
             this.hideModals();
+            $("#done").hide();
         },
 
         stop: function() {
@@ -339,9 +380,12 @@ $(function() {
             if (this.model.get('goal') != 0) {
                 if (this.model.get('animations')) {
                     this.$circle.addClass("animated pulse infinite");
-                }
+                    $(".symbol-successful").hide();
+                    $(".symbol-hidden").show();
+                }                
             }
             $("#done").show();
+            this.model.set('playing', false);
         },
 
 
@@ -368,6 +412,9 @@ $(function() {
             localStorage.clear();
             $("#records-table").html("");
             alert("All the data was deleted.");
+            this.history = new BoardHistory();
+            this.history.fetch();
+
             this.makeTable();
         },
 

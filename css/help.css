@@ -1,0 +1,15 @@
+body {
+  padding:30px;
+  font-family:Helvetica, Arial;
+}
+
+h1 {
+  color:rgb(102, 204, 204);
+}
+
+img {
+  width:50%;
+  margin-right:20px;
+  margin-bottom:10px;
+  border-radius:10px;
+}

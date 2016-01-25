@@ -34,4 +34,5 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="HideKeyboardFormAccessoryBar" value="true" />
     <preference name="KeyboardShrinksView" value="true" />
+    <preference name="Orientation" value="landscape" />
 </widget>
