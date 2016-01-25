@@ -3,7 +3,8 @@
 
 $(function() {
     var touch = device.tablet() || device.mobile();
-    var clickEvent = (touch ? "touchend" : "click");
+    var clickEvent = 'click';
+    FastClick.attach(document.body);
     var symbolSize = 40;
 
     function touchEvents(table) {

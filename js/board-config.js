@@ -3,7 +3,8 @@
 
 $(function() {
     var touch = device.tablet() || device.mobile();
-    var clickEvent = (touch ? "touchend" : "click");
+    var clickEvent = 'click';
+    FastClick.attach(document.body);
     var symbolSize = 40;
 
     function touchEvents(table) {
@@ -108,11 +109,13 @@ $(function() {
         el: $('body')[0],
         
         events: touchEvents({
+            "click circle": "dismissKeyboard",
+            "click board": "dismissKeyboard",
             "click #play": "play",
             "click .radio": "setRadio",
-            "change #name": "setName",
-            "change #topic": "setTopic",
-            "change #goal": "setGoal",
+            "input #name": "setName",
+            "input #topic": "setTopic",
+            "input #goal": "setGoal",
             "click #done": "done",
             "click #overlay": "point",
             "click #reset": "reset",
@@ -321,6 +324,10 @@ $(function() {
 
         hideModals: function() {            
             UIkit.modal("#menu-modal").hide();
+        },
+        
+        dismissKeyboard: function() {
+            document.activeElement.blur();  
         },
         
         reset: function() {
