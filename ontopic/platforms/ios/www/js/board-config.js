@@ -3,14 +3,17 @@
 
 $(function() {
     var touch = device.tablet() || device.mobile();
-    var clickEvent = 'click';
     FastClick.attach(document.body);
     var symbolSize = 40;
+    var clickEvent = "click";
 
     function touchEvents(table) {
         var tnew = {};
         _.each(_.keys(table), function(k) {
-            tnew[k.replace("click", clickEvent)] = table[k];
+            if (touch)
+                tnew[k.replace("mousedown", "touchstart")] = table[k];
+            else
+                tnew[k] = table[k];
         });
 
         return tnew;
@@ -129,7 +132,8 @@ $(function() {
             "click #sounds": "toggle",            
             "click #animations": "toggle",
             "click #delete-all": "deleteData",
-            "click #excel": "toCSV"
+            "click #excel": "toCSV",
+            "keydown .text-input": "inputKeydown"
         }),
         
         initialize: function() {
@@ -217,8 +221,10 @@ $(function() {
                 }
                 $("#topic-goal").show();
             } else {
-                $("#topic-goal").text(this.model.get('current'));
-                $("#done").show();
+                if (this.model.get('playing')) {
+                    $("#topic-goal").text(this.model.get('current'));
+                    $("#done").show();
+                }
             }
 
             this.saveSettings();
@@ -236,9 +242,6 @@ $(function() {
 
             var name = this.model.get('name');
             var topic = this.model.get('topic');
-
-            if ((name == "" && !confirm("You did not specify the client's name. Do you want to continue anyway?")) || (topic == "" && !confirm("You did not specify a topic. Do you want to continue anyway?")))
-                return;
             
             this.model.set('current', 0);
             this.model.set('missed', 0);
@@ -282,6 +285,7 @@ $(function() {
         },
 
         save: function() {
+            this.model.set('playing', false);
             this.history.add(this.model);
             this.model.save();
             this.makeTable();
@@ -316,6 +320,7 @@ $(function() {
 
                     $sym.on(clickEvent, function() {
                         $sym.remove();
+                        $sym_hidden.remove();
                         self.model.set('current', self.model.get('current')-1);
                         return false;
                     });
@@ -359,6 +364,11 @@ $(function() {
             if (UIkit.modal("#menu-modal").active)
                 UIkit.modal("#menu-modal").hide();
         },
+
+        inputKeydown: function(e) {
+            if (e.keyCode == 13)
+                this.dismissKeyboard();
+        },
         
         dismissKeyboard: function() {
             document.activeElement.blur();  
@@ -369,11 +379,13 @@ $(function() {
             $(".symbol").remove();
             this.hideModals();
             $("#done").hide();
+            this.model.set('playing', true);
         },
 
         stop: function() {
             this.main();
             this.hideModals();
+            this.model.set('playing', false);
         },
         
         win: function() {
@@ -409,13 +421,26 @@ $(function() {
         },
 
         deleteData: function() {
+            if (navigator.notification) {
+                navigator.notification.confirm(
+                    'Do you really want to delete all the OnTopic history data on this device?',
+                    _.bind(this.clearHistory, this),
+                    'Delete history',
+                    ['Delete', 'Cancel']);
+                
+            } else {
+                if (confirm('Do you really want to delete all the OnTopic history data?')) {
+                    this.clearHistory();
+                }
+            }
+        },
+
+        clearHistory: function() {
             localStorage.clear();
             $("#records-table").html("");
-            alert("All the data was deleted.");
             this.history = new BoardHistory();
             this.history.fetch();
-
-            this.makeTable();
+            this.makeTable();                    
         },
 
         toCSV: function() {
